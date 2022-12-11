@@ -1,0 +1,32 @@
+.firstRowCharts {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: "row";
+  width: 100%;
+  height: "60vh";
+}
+
+.secondRowCharts {
+  display: flex;
+  flex-direction: "row";
+  width: 100%;
+  height: "60vh";
+}
+
+.doughnutDashboard {
+  margin-left: 240px;
+}
+.lineChartDashboard {
+  margin-left: 250px;
+  margin-top: 85px;
+}
+
+.barDashboard {
+  margin-left: 200px;
+  margin-top: 110px;
+}
+
+.bar2Dashboard {
+  margin-left: 140px;
+  margin-top: 110px;
+}

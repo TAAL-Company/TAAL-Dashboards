@@ -2,6 +2,8 @@
 import { Doughnut, Line, Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import "./App.css";
+import AccessibleTabs1 from "./components/AccessibleTabs1";
+import TimeData from "./components/TimeData/TimeData";
 
 // Primamry Colors
 // #256fa1 - rgb(35,111,160) - blue
@@ -30,15 +32,7 @@ const data = {
   ],
 };
 
-const labels2 = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-];
+const labels2 = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי"];
 const data2 = {
   labels: labels2,
   datasets: [
@@ -72,15 +66,7 @@ const data3 = {
   ],
 };
 
-const labels4 = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-];
+const labels4 = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי"];
 const data4 = {
   labels: labels4,
 
@@ -119,6 +105,15 @@ function App() {
           style={{ width: "500px", height: "350px" }}
           className="doughnutDashboard"
         >
+          <AccessibleTabs1></AccessibleTabs1>
+          <TimeData
+            user_id={51}
+            task_id={1664}
+            route_id={null}
+            date_range={"week"}
+            first_day_of_range={null}
+            last_day_of_range={null}
+          ></TimeData>
           <Doughnut data={data} />
         </div>
         <div
@@ -130,20 +125,26 @@ function App() {
           }}
           className="lineChartDashboard"
         >
+          <AccessibleTabs1></AccessibleTabs1>
+
           <Line data={data2} />
         </div>
       </div>
-      <div className="secondRowCharts">
+      <div className="secondRowCharts" style={{ marginTop: "30px" }}>
         <div
           style={{ width: "650px", height: "350px" }}
           className="barDashboard"
         >
+          <AccessibleTabs1></AccessibleTabs1>
+
           <Bar data={data3} />
         </div>
         <div
           style={{ width: "650px", height: "350px" }}
           className="bar2Dashboard"
         >
+          <AccessibleTabs1></AccessibleTabs1>
+
           <Bar data={data4} />
         </div>
       </div>

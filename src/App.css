@@ -1,16 +1,16 @@
 .firstRowCharts {
-  padding-top: 20px;
+  margin-top: 20px;
   display: flex;
   flex-direction: "row";
   width: 100%;
-  height: "60vh";
+  height: 50vh;
 }
 
 .secondRowCharts {
   display: flex;
   flex-direction: "row";
-  width: 100%;
-  height: "60vh";
+  margin-top: 100px;
+  height: 50vh;
 }
 
 .doughnutDashboard {
@@ -18,15 +18,15 @@
 }
 .lineChartDashboard {
   margin-left: 250px;
-  margin-top: 85px;
+  /* margin-top: 85px; */
 }
 
 .barDashboard {
   margin-left: 200px;
-  margin-top: 110px;
+  /* margin-top: 110px; */
 }
 
 .bar2Dashboard {
   margin-left: 140px;
-  margin-top: 110px;
+  /* margin-top: 110px; */
 }

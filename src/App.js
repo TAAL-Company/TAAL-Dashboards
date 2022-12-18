@@ -106,11 +106,19 @@ function App() {
           className="doughnutDashboard"
         >
           <AccessibleTabs1></AccessibleTabs1>
-          <TimeData
+          {/* <TimeData
             user_id={51}
             task_id={1664}
             route_id={null}
             date_range={"week"}
+            first_day_of_range={null}
+            last_day_of_range={null}
+          ></TimeData> */}
+          <TimeData
+            user_id={51}
+            task_id={null}
+            route_id={217}
+            date_range={"month"}
             first_day_of_range={null}
             last_day_of_range={null}
           ></TimeData>
@@ -130,7 +138,7 @@ function App() {
           <Line data={data2} />
         </div>
       </div>
-      <div className="secondRowCharts" style={{ marginTop: "30px" }}>
+      <div className="secondRowCharts">
         <div
           style={{ width: "650px", height: "350px" }}
           className="barDashboard"

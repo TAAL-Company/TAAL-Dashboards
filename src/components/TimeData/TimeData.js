@@ -207,73 +207,204 @@ const TimeData = ({
             (user) =>
               // example for specific user
               user.acf.user_id == user_id &&
-              // // example for specific task
+              // // example for specific route
               user.acf.route_id == route_id &&
               // example for traget time range
               user.acf.start_time.slice(0, 10) == currDateString
           );
+
+          console.log("result route:");
+          console.log(result);
+        } else if (date_range == "yesterday") {
+          currDate.setDate(currDate.getDate() - 1);
+          const yesterdayDate = currDate.toJSON().slice(0, 10);
+          currDate.setDate(currDate.getDate() + 1);
+          console.log("yesterdayDate: " + yesterdayDate);
+          result = res.data.filter(
+            (user) =>
+              // example for specific user
+              user.acf.user_id == user_id &&
+              // // example for specific route
+              user.acf.route_id == route_id &&
+              // example for traget time range
+              user.acf.start_time.slice(0, 10) == yesterdayDate
+          );
+
+          console.log("result route:");
+          console.log(result);
+        } else if (date_range == "week") {
+          let first = currDate.getDate() - currDate.getDay(); // First day is the day of the month - the day of the week
+          let last = first + 6; // last day is the first day + 6
+
+          let firstday = new Date(currDate.setDate(first));
+          let lastday = new Date(currDate.setDate(last));
+
+          firstday.setHours(0);
+          firstday.setMinutes(0);
+          firstday.setSeconds(0);
+
+          lastday.setHours(0);
+          lastday.setMinutes(0);
+          lastday.setSeconds(0);
+
+          console.log("firstday: " + firstday);
+          console.log("lastday: " + lastday);
+          result = res.data.filter(
+            (user) =>
+              // example for specific user
+              user.acf.user_id == user_id &&
+              // // example for specific route
+              user.acf.route_id == route_id &&
+              // example for traget time range
+              new Date(user.acf.start_time) <= lastday &&
+              firstday <= new Date(user.acf.start_time)
+          );
+
+          console.log("result route:");
+          console.log(result);
+        } else if (date_range == "month") {
+          const firstDay = new Date(
+            currDate.getFullYear(),
+            currDate.getMonth(),
+            1
+          );
+          const lastDay = new Date(
+            currDate.getFullYear(),
+            currDate.getMonth() + 1,
+            1
+          );
+          console.log("Month: firstDay: " + firstDay + ", lastDay: " + lastDay);
+
+          result = res.data.filter(
+            (user) =>
+              // example for specific user
+              user.acf.user_id == user_id &&
+              // // example for specific route
+              user.acf.route_id == route_id &&
+              // example for traget time range
+              firstDay <= new Date(user.acf.start_time) &&
+              lastDay >= new Date(user.acf.start_time)
+          );
+
+          console.log("result route:");
+          console.log(result);
+        } else if (date_range == "year") {
+          let firstDayOfYear = new Date(new Date().getFullYear(), 0, 1);
+          let lastDayOfYear = new Date(new Date().getFullYear() + 1, 0, 1);
+
+          console.log("first day of year: " + firstDayOfYear);
+          console.log("last day of year: " + lastDayOfYear);
+
+          result = res.data.filter(
+            (user) =>
+              // example for specific user
+              user.acf.user_id == user_id &&
+              // // example for specific route
+              user.acf.route_id == route_id &&
+              // example for traget time range
+              new Date(user.acf.start_time) <= lastDayOfYear &&
+              firstDayOfYear <= new Date(user.acf.start_time)
+          );
+          console.log("result route:");
+          console.log(result);
+        } else if (date_range == "range") {
+          let firstDayOfRange = new Date(first_day_of_range);
+          let lastDayOfRange = new Date(last_day_of_range);
+
+          result = res.data.filter(
+            (user) =>
+              // example for specific user
+              user.acf.user_id == user_id &&
+              // // example for specific route
+              user.acf.route_id == route_id &&
+              // example for traget time range
+              new Date(user.acf.start_time) <= lastDayOfRange &&
+              firstDayOfRange <= new Date(user.acf.start_time)
+          );
+          console.log("result route:");
+          console.log(result);
         }
       }
 
-      for (let i = 0; i < result.length; i++) {
-        const start_time = result[i].acf.start_time;
-        const end_time = result[i].acf.end_time;
+      if (route_id === null) {
+        for (let i = 0; i < result.length; i++) {
+          const start_time = result[i].acf.start_time;
+          const end_time = result[i].acf.end_time;
 
-        const diff = new Date(end_time) - new Date(start_time);
+          const diff = new Date(end_time) - new Date(start_time);
 
-        console.log("diff in minutes: " + parseFloat(diff / 1000 / 60));
+          console.log("diff in minutes: " + parseFloat(diff / 1000 / 60));
 
-        let secondsCalc = Math.floor(diff / 1000);
-        let minutesCalc = Math.floor(secondsCalc / 60);
-        let hoursCalc = Math.floor(minutesCalc / 60);
+          let secondsCalc = Math.floor(diff / 1000);
+          let minutesCalc = Math.floor(secondsCalc / 60);
+          let hoursCalc = Math.floor(minutesCalc / 60);
 
-        const year = start_time.slice(0, 4);
-        const month = start_time.slice(5, 7);
-        const day = start_time.slice(8, 10);
-        const hours = hoursCalc;
-        const minutes = minutesCalc;
-        const seconds = secondsCalc;
+          const year = start_time.slice(0, 4);
+          const month = start_time.slice(5, 7);
+          const day = start_time.slice(8, 10);
+          const hours = hoursCalc;
+          const minutes = minutesCalc;
+          const seconds = secondsCalc;
 
-        const resultTimeAndDateOnTask = new Date(
-          year,
-          month - 1,
-          day,
-          hours,
-          minutes,
-          seconds
-        );
+          const resultTimeAndDateOnTask = new Date(
+            year,
+            month - 1,
+            day,
+            hours,
+            minutes,
+            seconds
+          );
 
-        // dataResultArray.push(resultTimeAndDateOnTask.toString().slice(0, 24));
-        console.log("testtt: " + resultTimeAndDateOnTask);
+          // dataResultArray.push(resultTimeAndDateOnTask.toString().slice(0, 24));
+          console.log("testtt: " + resultTimeAndDateOnTask);
+          dataResultArray.push(
+            JSON.stringify({
+              day: resultTimeAndDateOnTask.toString().slice(0, 3),
+              date: resultTimeAndDateOnTask.toString().slice(4, 15),
+              time: resultTimeAndDateOnTask.toString().slice(16, 24),
+            })
+          );
+        }
+      } else {
+        // צריך לעשות חיתוך של ימים בתוך חודש נבחר
+        // צריך לעשות חיתוך של ימים בתוך שנה נבחרת
+        // צריך לעשות חיתוך של ימים בתוך טווח תאריכים נבחר
+
+        let totalTimeToRoute = 0;
+        for (let i = 0; i < result.length; i++) {
+          const start_time = result[i].acf.start_time;
+          const end_time = result[i].acf.end_time;
+
+          const diff = new Date(end_time) - new Date(start_time);
+
+          totalTimeToRoute = totalTimeToRoute + Math.floor(diff / 1000);
+        }
+
+        const info = new Date(result[0].acf.start_time);
+        console.log("info: " + info);
         dataResultArray.push(
           JSON.stringify({
-            day: resultTimeAndDateOnTask.toString().slice(0, 3),
-            date: resultTimeAndDateOnTask.toString().slice(4, 15),
-            time: resultTimeAndDateOnTask.toString().slice(16, 24),
+            day: info.toString().slice(0, 3),
+            date: info.toString().slice(4, 15),
+            time: totalTimeToRoute,
           })
         );
+
+        console.log("dataResultArray; " + dataResultArray);
       }
 
       const arrResult = [dataResultArray.length];
-      let timeInSeconds;
       for (let i = 0; i < dataResultArray.length; i++) {
         // Delete new Date() if u want this as a String instead of Date Object
-
-        timeInSeconds =
-          parseInt(JSON.parse(dataResultArray[i]).time.slice(0, 2)) * 60 * 60 +
-          parseInt(JSON.parse(dataResultArray[i]).time.slice(3, 5)) * 60 +
-          parseInt(JSON.parse(dataResultArray[i]).time.slice(6, 8));
-
-        console.log("timeInSeconds: " + timeInSeconds);
 
         const jsonParseObject = JSON.parse(dataResultArray[i]);
         arrResult[i] = {
           day: jsonParseObject.day,
           date: jsonParseObject.date,
-          timeOnTask: timeInSeconds,
+          timeOnTask: jsonParseObject.time,
         };
 
-        console.log("Task time number " + i + ": " + dataResultArray[i]);
+        console.log("Route time number " + i + ": " + dataResultArray[i]);
       }
 
       console.log(arrResult);

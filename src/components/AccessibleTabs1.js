@@ -18,7 +18,7 @@ export default function AccessibleTabs1() {
         selectionFollowsFocus
       >
         <Tab label="יום" />
-        <Tab label="7 ימים אחרונים" />
+        <Tab label="שבוע" />
         <Tab label="חודש" />
         <Tab label="שנה" />
         <Tab label="טווח תאריכים" />

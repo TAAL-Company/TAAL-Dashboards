@@ -4,6 +4,7 @@ import "chart.js/auto";
 import "./App.css";
 import AccessibleTabs1 from "./components/AccessibleTabs1";
 import TimeData from "./components/TimeData/TimeData";
+import GetEstimatedTime from "./components/GetEstimatedTime";
 
 // Primamry Colors
 // #256fa1 - rgb(35,111,160) - blue
@@ -105,6 +106,7 @@ function App() {
           style={{ width: "500px", height: "350px" }}
           className="doughnutDashboard"
         >
+          {/* <GetEstimatedTime></GetEstimatedTime> */}
           <AccessibleTabs1></AccessibleTabs1>
           {/* <TimeData
             user_id={51}

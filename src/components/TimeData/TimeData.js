@@ -73,16 +73,13 @@ const TimeData = ({
         }
       }
 
-      //   print all time data
-      //   console.log("res time data:", res.data);
-
       const currDate = new Date();
 
       const currDateString = currDate.toJSON().slice(0, 10);
       console.log("currDate: " + currDateString);
 
       if (route_id === null) {
-        console.log("check1");
+        console.log("route_id === null");
         if (date_range == "today") {
           console.log("currDateString: " + currDateString);
           result = res.data.filter(
@@ -370,28 +367,23 @@ const TimeData = ({
         // צריך לעשות חיתוך של ימים בתוך חודש נבחר
         // צריך לעשות חיתוך של ימים בתוך שנה נבחרת
         // צריך לעשות חיתוך של ימים בתוך טווח תאריכים נבחר
-
-        let totalTimeToRoute = 0;
-        for (let i = 0; i < result.length; i++) {
-          const start_time = result[i].acf.start_time;
-          const end_time = result[i].acf.end_time;
-
-          const diff = new Date(end_time) - new Date(start_time);
-
-          totalTimeToRoute = totalTimeToRoute + Math.floor(diff / 1000);
-        }
-
-        const info = new Date(result[0].acf.start_time);
-        console.log("info: " + info);
-        dataResultArray.push(
-          JSON.stringify({
-            day: info.toString().slice(0, 3),
-            date: info.toString().slice(4, 15),
-            time: totalTimeToRoute,
-          })
-        );
-
-        console.log("dataResultArray; " + dataResultArray);
+        // let totalTimeToRoute = 0;
+        // for (let i = 0; i < result.length; i++) {
+        //   const start_time = result[i].acf.start_time;
+        //   const end_time = result[i].acf.end_time;
+        //   const diff = new Date(end_time) - new Date(start_time);
+        //   totalTimeToRoute = totalTimeToRoute + Math.floor(diff / 1000);
+        // }
+        // const info = new Date(result[0].acf.start_time);
+        // console.log("info: " + info);
+        // dataResultArray.push(
+        //   JSON.stringify({
+        //     day: info.toString().slice(0, 3),
+        //     date: info.toString().slice(4, 15),
+        //     time: totalTimeToRoute,
+        //   })
+        // );
+        // console.log("dataResultArray; " + dataResultArray);
       }
 
       const arrResult = [dataResultArray.length];

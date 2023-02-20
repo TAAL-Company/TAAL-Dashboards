@@ -1,4 +1,3 @@
-// npm install --save chart.js react-chartjs-2
 import { Doughnut, Line, Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import "./App.css";
@@ -101,6 +100,14 @@ const data4 = {
 function App() {
   return (
     <div className="App">
+      <TimeData
+        user_id={51}
+        task_id={null}
+        route_id={217}
+        date_range={"month"}
+        first_day_of_range={null}
+        last_day_of_range={null}
+      ></TimeData>
       <div className="firstRowCharts">
         <div
           style={{ width: "500px", height: "350px" }}
@@ -116,14 +123,8 @@ function App() {
             first_day_of_range={null}
             last_day_of_range={null}
           ></TimeData> */}
-          <TimeData
-            user_id={51}
-            task_id={null}
-            route_id={217}
-            date_range={"month"}
-            first_day_of_range={null}
-            last_day_of_range={null}
-          ></TimeData>
+
+          {/* Doughnut Chart */}
           <Doughnut data={data} />
         </div>
         <div
@@ -137,6 +138,7 @@ function App() {
         >
           <AccessibleTabs1></AccessibleTabs1>
 
+          {/* Line Chart */}
           <Line data={data2} />
         </div>
       </div>
@@ -147,6 +149,7 @@ function App() {
         >
           <AccessibleTabs1></AccessibleTabs1>
 
+          {/* Bar Chart - multiple tasks*/}
           <Bar data={data3} />
         </div>
         <div
@@ -155,6 +158,7 @@ function App() {
         >
           <AccessibleTabs1></AccessibleTabs1>
 
+          {/* Bar Chart - one task*/}
           <Bar data={data4} />
         </div>
       </div>

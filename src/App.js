@@ -1,8 +1,8 @@
 import { Doughnut, Line, Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import "./App.css";
-import AccessibleTabs1 from "./components/AccessibleTabs1";
-import TimeData from "./components/TimeData/TimeData";
+import DateNavbarPicker from "./components/DateNavbarPicker";
+import TimeData from "./components/TimeData";
 import GetEstimatedTime from "./components/GetEstimatedTime";
 
 // Primamry Colors
@@ -114,7 +114,7 @@ function App() {
           className="doughnutDashboard"
         >
           {/* <GetEstimatedTime></GetEstimatedTime> */}
-          <AccessibleTabs1></AccessibleTabs1>
+          <DateNavbarPicker></DateNavbarPicker>
           {/* <TimeData
             user_id={51}
             task_id={1664}
@@ -136,7 +136,7 @@ function App() {
           }}
           className="lineChartDashboard"
         >
-          <AccessibleTabs1></AccessibleTabs1>
+          <DateNavbarPicker></DateNavbarPicker>
 
           {/* Line Chart */}
           <Line data={data2} />
@@ -147,7 +147,7 @@ function App() {
           style={{ width: "650px", height: "350px" }}
           className="barDashboard"
         >
-          <AccessibleTabs1></AccessibleTabs1>
+          <DateNavbarPicker></DateNavbarPicker>
 
           {/* Bar Chart - multiple tasks*/}
           <Bar data={data3} />
@@ -156,7 +156,7 @@ function App() {
           style={{ width: "650px", height: "350px" }}
           className="bar2Dashboard"
         >
-          <AccessibleTabs1></AccessibleTabs1>
+          <DateNavbarPicker></DateNavbarPicker>
 
           {/* Bar Chart - one task*/}
           <Bar data={data4} />

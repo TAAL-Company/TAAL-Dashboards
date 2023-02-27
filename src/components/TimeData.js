@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { get } from "../../api/api";
+import { get } from "../api/api";
+import axios from "axios";
 
 let result = [];
 // https://s83.bfa.myftpupload.com/wp-json/wp/v2/time_data
@@ -39,11 +40,17 @@ const TimeData = ({
     console.log("first_day_of_range: " + first_day_of_range);
     console.log("last_day_of_range: " + last_day_of_range);
 
+    // axios
+    //   .get("https://prod-web-app0da5905.azurewebsites.net/students")
+    //   .then((response) => {
+    //     console.log("response.data");
+    //     console.log(response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error fetching tasks:", error);
+    //   });
+
     await get(`https://s83.bfa.myftpupload.com/wp-json/wp/v2/time_data/`, {
-      // headers: {
-      //   "Content-Type": "application/json",
-      //   Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
-      // },
       params: {
         per_page: 99,
         "Cache-Control": "no-cache",

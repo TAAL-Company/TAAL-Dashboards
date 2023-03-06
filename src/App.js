@@ -3,7 +3,10 @@ import "chart.js/auto";
 import "./App.css";
 import DateNavbarPicker from "./components/DateNavbarPicker";
 import TimeData from "./components/TimeData";
-import GetEstimatedTime from "./components/GetEstimatedTime";
+
+import { getEstimatedTime } from "./api/get_requests/getEstimatedTime";
+import { getNumberOfTasksInRoute } from "./api/get_requests/getNumberOfTasksInRoute";
+import { getPieChartInput } from "./api/get_requests/getPieChartInput";
 
 // Primamry Colors
 // #256fa1 - rgb(35,111,160) - blue
@@ -16,6 +19,13 @@ import GetEstimatedTime from "./components/GetEstimatedTime";
 // #f9c900 - rgb(247,201,4) - yellow
 // #e87506 - rgb(231,116,10) - orange
 
+getEstimatedTime("944635a2-4454-42c1-971f-d23fd37107c3");
+getNumberOfTasksInRoute("a2d4ca37-7584-404b-8b76-dc7512f4c8ad");
+getPieChartInput(
+  "eea98c3d-56d7-4f9c-b967-a60b6bb0a184",
+  "a2d4ca37-7584-404b-8b76-dc7512f4c8ad",
+  "lastMonth"
+);
 const data = {
   labels: ["הושלמו בהצלחה", "הושלמו עם בקשת עזרה", "לא הושלמו"],
   datasets: [
@@ -113,7 +123,7 @@ function App() {
           style={{ width: "500px", height: "350px" }}
           className="doughnutDashboard"
         >
-          {/* <GetEstimatedTime></GetEstimatedTime> */}
+          {" "}
           <DateNavbarPicker></DateNavbarPicker>
           {/* <TimeData
             user_id={51}
@@ -123,7 +133,6 @@ function App() {
             first_day_of_range={null}
             last_day_of_range={null}
           ></TimeData> */}
-
           {/* Doughnut Chart */}
           <Doughnut data={data} />
         </div>

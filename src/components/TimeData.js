@@ -17,13 +17,75 @@ const TimeData = ({
 
   let dataResultArray = [];
 
-  // get: user_id, task_id, route_id, date_range(day, week, month, year, range, select 2 days (no range))
-  // return:
-  //    Case: case of specific user, specific task, and range time:
-  //    Return: Array of TimeOnTask - The time for the task each day will be calculated and displayed as output in the chart.
+  axios
+    .get("https://prod-web-app0da5905.azurewebsites.net/routes?id=")
+    .then((res) => {
+      const tasksInRoute = res.data.tasks;
+    });
 
-  //    Case: case of specific user, specific route, and range time:
-  //    Return: Array of TimeOnTask - The time for the route each day is calculated and displayed as output in the chart.
+  axios
+    .get(
+      "https://prod-web-app0da5905.azurewebsites.net/task-performance?studentId=eea98c3d-56d7-4f9c-b967-a60b6bb0a184&routeId=  &startTime=lastMonth"
+    )
+    .then((response) => {
+      const data = Object.values(response.data);
+
+      const completedTasks = data.length;
+
+      const uniqueDates = new Set();
+
+      for (let i = 0; i < data.length; i++) {
+        const date = data[i].startTime.substr(0, 10);
+        uniqueDates.add(date);
+      }
+      console.log("Working days in the last month: ");
+
+      console.log(uniqueDates.size);
+    })
+    .catch((error) => {
+      console.error("Error fetching tasks:", error);
+    });
+
+  axios
+    .get(
+      "https://prod-web-app0da5905.azurewebsites.net/task-performance?studentId=eea98c3d-56d7-4f9c-b967-a60b6bb0a184&routeId=  &startTime=lastMonth&whenAssisted=1969-12-31T22:00:00.000Z"
+    )
+    .then((response) => {
+      const data = Object.values(response.data);
+
+      const completedTasks = data.length;
+
+      const uniqueDates = new Set();
+
+      for (let i = 0; i < data.length; i++) {
+        const date = data[i].startTime.substr(0, 10);
+        uniqueDates.add(date);
+      }
+      console.log("Working days in the date range picked: ");
+
+      console.log(uniqueDates.size);
+    })
+    .catch((error) => {
+      console.error("Error fetching tasks:", error);
+    });
+
+  // const input =
+  //   '[{"id":"1","taskId":"1","routeId":1,"siteId":"1","startTime":"2023-02-22T09:27:58.000Z"},{"id":"2","taskId":"1","routeId":1,"siteId":"1","startTime":"2023-02-22T09:27:58.000Z"},{"id":"3","taskId":"1","routeId":1,"siteId":"1","startTime":"2023-02-22T11:27:58.000Z"},{"id":"4","taskId":"1","routeId":1,"siteId":"1","startTime":"2023-02-22T14:27:58.000Z"},{"id":"5","taskId":"1","routeId":1,"siteId":"1","startTime":"2023-04-22T14:27:58.000Z"}]';
+
+  // const data = JSON.parse(input);
+
+  // const uniqueDates = new Set();
+
+  // for (let i = 0; i < data.length; i++) {
+  //   const date = data[i].startTime.substr(0, 10);
+  //   uniqueDates.add(date);
+  // }
+
+  // const output = JSON.stringify(Array.from(uniqueDates));
+
+  // console.log("output");
+
+  // console.log(output);
 
   const gettingData = async (
     user_id,
@@ -40,15 +102,57 @@ const TimeData = ({
     console.log("first_day_of_range: " + first_day_of_range);
     console.log("last_day_of_range: " + last_day_of_range);
 
-    // axios
-    //   .get("https://prod-web-app0da5905.azurewebsites.net/students")
-    //   .then((response) => {
-    //     console.log("response.data");
-    //     console.log(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching tasks:", error);
-    //   });
+    let getRequest =
+      "https://prod-web-app0da5905.azurewebsites.net/" +
+      "task-preformance" +
+      "?";
+    let filtersCounter = 0;
+
+    if (user_id != null) {
+      if (filtersCounter > 0) {
+        getRequest = getRequest + "&";
+        filtersCounter = filtersCounter + 1;
+      }
+      getRequest = getRequest + "userId=" + user_id;
+    }
+
+    if (task_id != null) {
+      if (filtersCounter > 0) {
+        getRequest = getRequest + "&";
+        filtersCounter = filtersCounter + 1;
+      }
+      getRequest = getRequest + "taskId=" + task_id;
+    }
+
+    if (route_id != null) {
+      if (filtersCounter > 0) {
+        getRequest = getRequest + "&";
+        filtersCounter = filtersCounter + 1;
+      }
+      getRequest = getRequest + "routeId=" + route_id;
+    }
+
+    if (date_range != null) {
+      if (filtersCounter > 0) {
+        getRequest = getRequest + "&";
+        filtersCounter = filtersCounter + 1;
+      }
+      getRequest = getRequest + "startTime=" + date_range;
+    }
+
+    console.log("getRequest: " + getRequest);
+
+    axios
+      .get(
+        "https://prod-web-app0da5905.azurewebsites.net/task-performance?studentId=72884070-f6bb-417d-9ada-c15fa1042c7b&taskId=1d754284-29b6-425a-8693-fb6a1707cd76&startTime=lastMonth"
+      )
+      .then((response) => {
+        console.log("response.data");
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching tasks:", error);
+      });
 
     await get(`https://s83.bfa.myftpupload.com/wp-json/wp/v2/time_data/`, {
       params: {

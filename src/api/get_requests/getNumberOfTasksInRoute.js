@@ -5,7 +5,7 @@ export const getNumberOfTasksInRoute = (route_id) => {
     .then((res) => {
       console.log(res.data.tasks.length);
 
-      // return res.data.tasks.length;
+      return res.data.tasks.length;
     })
     .catch((error) => {
       console.error("Error fetching tasks:", error);

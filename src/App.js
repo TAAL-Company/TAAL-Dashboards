@@ -7,6 +7,9 @@ import TimeData from "./components/TimeData";
 import { getEstimatedTime } from "./api/get_requests/getEstimatedTime";
 import { getNumberOfTasksInRoute } from "./api/get_requests/getNumberOfTasksInRoute";
 import { getPieChartInput } from "./api/get_requests/getPieChartInput";
+import LineChart from "./components/LineChart";
+import Chartcheck from "./components/Chartcheck";
+import CheckHighCharts from "./components/CheckHighCharts";
 
 // Primamry Colors
 // #256fa1 - rgb(35,111,160) - blue
@@ -20,8 +23,7 @@ import { getPieChartInput } from "./api/get_requests/getPieChartInput";
 // #e87506 - rgb(231,116,10) - orange
 
 getEstimatedTime("944635a2-4454-42c1-971f-d23fd37107c3");
-getNumberOfTasksInRoute("a2d4ca37-7584-404b-8b76-dc7512f4c8ad");
-getPieChartInput(
+const pieChartData = getPieChartInput(
   "eea98c3d-56d7-4f9c-b967-a60b6bb0a184",
   "a2d4ca37-7584-404b-8b76-dc7512f4c8ad",
   "lastMonth"
@@ -30,8 +32,12 @@ const data = {
   labels: ["הושלמו בהצלחה", "הושלמו עם בקשת עזרה", "לא הושלמו"],
   datasets: [
     {
-      label: "My First Dataset",
-      data: [300, 50, 100],
+      label: "Pie Chart",
+      data: [
+        pieChartData.completedTasks,
+        pieChartData.assistedTasks,
+        pieChartData.unCompletedTasks,
+      ],
       backgroundColor: [
         "rgb(35,111,160)",
         "rgb(204, 25, 44)",
@@ -123,7 +129,7 @@ function App() {
           style={{ width: "500px", height: "350px" }}
           className="doughnutDashboard"
         >
-          {" "}
+          {/* <LineChart></LineChart> */}
           <DateNavbarPicker></DateNavbarPicker>
           {/* <TimeData
             user_id={51}
@@ -170,6 +176,10 @@ function App() {
           {/* Bar Chart - one task*/}
           <Bar data={data4} />
         </div>
+      </div>
+      <div style={{ width: "650px", height: "350px" }} className="barDashboard">
+        <Chartcheck></Chartcheck>
+        <CheckHighCharts></CheckHighCharts>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { get } from "../api";
+import { getNumberOfTasksInRoute } from "./getNumberOfTasksInRoute";
 
 export const getPieChartInput = (student_id, route_id, date_range) => {
   get(
@@ -34,6 +35,10 @@ export const getPieChartInput = (student_id, route_id, date_range) => {
 
       console.log("Working days in the last month: " + workingDays);
 
+      const unCompletedTasks = getNumberOfTasksInRoute(route_id);
+
+      console.log("uncompleted in the last month: " + unCompletedTasks);
+
       // =================================
 
       // return completedTasks, workingDays ;
@@ -51,6 +56,12 @@ export const getPieChartInput = (student_id, route_id, date_range) => {
       const assistedTasks = filteredData.length;
 
       console.log("assistedTasks: " + assistedTasks);
+
+      return {
+        completedTasks: completedTasks,
+        assistedTasks: assistedTasks,
+        unCompletedTasks: unCompletedTasks,
+      };
     })
     .catch((error) => {
       console.error("Error fetching tasks:", error);
